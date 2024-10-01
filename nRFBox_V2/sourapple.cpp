@@ -37,6 +37,12 @@ void addLineToDisplay(String newLine) {
   updatedisplay(); 
 }
 
+
+String toStringApple(uint8_t *str){
+    return String((char *)str);
+
+}
+
 void displayAdvertisementData() {
   String lineStr = String(lineNumber) + ": ";
   lineNumber++;
@@ -75,9 +81,10 @@ BLEAdvertisementData getOAdvertisementData() {
   packet[i++] = 0x10;    // Type ???
   esp_fill_random(&packet[i], 3);
 
-  advertisementData.addData(std::string((char *)packet, 17));
+  advertisementData.addData(toStringApple(packet));
   return advertisementData;
 }
+
 
 void sourappleSetup(){
   

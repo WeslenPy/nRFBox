@@ -189,90 +189,95 @@ void updateDisplay() {
   u8g2.sendBuffer(); 
 }
 
+String toString(uint8_t *str){
+    return String((char *)str);
+
+}
+
 void setAdvertisingData() {
   BLEAdvertisementData oAdvertisementData = BLEAdvertisementData();
 
 switch (deviceType) {
   case 1:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpods, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAirpods)); 
     break;
   case 2:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpodsPro, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAirpodsPro)); 
     break;
   case 3:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpodsMax, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAirpodsMax)); 
     break;
   case 4:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpodsGen2, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAirpodsGen2)); 
     break;
   case 5:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpodsGen3, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAirpodsGen3)); 
     break;
   case 6:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpodsProGen2, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAirpodsProGen2)); 
     break;
   case 7:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataPowerBeats, 31));
+    oAdvertisementData.setManufacturerData(toString(dataPowerBeats)); 
     break;
   case 8:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataPowerBeatsPro, 31));
+    oAdvertisementData.setManufacturerData(toString(dataPowerBeatsPro)); 
     break;
   case 9:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsSoloPro, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsSoloPro)); 
     break;
   case 10:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsStudioBuds, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsStudioBuds)); 
     break;
   case 11:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsFlex, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsFlex)); 
     break;
   case 12:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsX, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsX)); 
     break;
   case 13:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsSolo3, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsSolo3)); 
     break;
   case 14:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsStudio3, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsStudio3)); 
     break;
   case 15:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsStudioPro, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsStudioPro)); 
     break;
   case 16:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsFitPro, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsFitPro)); 
     break;
   case 17:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataBeatsStudioBudsPlus, 31));
+    oAdvertisementData.setManufacturerData(toString(dataBeatsStudioBudsPlus)); 
     break;
   case 18:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVSetup, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVSetup)); 
     break;
   case 19:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVPair, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVPair)); 
     break;
   case 20:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVNewUser, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVNewUser)); 
     break;
   case 21:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVAppleIDSetup, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVAppleIDSetup)); 
     break;
   case 22:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVWirelessAudioSync, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVWirelessAudioSync)); 
     break;
   case 23:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVHomekitSetup, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVHomekitSetup)); 
     break;
   case 24:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVKeyboard, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVKeyboard)); 
     break;
   case 25:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAppleTVConnectingToNetwork, 31));
+    oAdvertisementData.setManufacturerData(toString(dataAppleTVConnectingToNetwork)); 
     break;
   case 26:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataTVColorBalance, 31));
+    oAdvertisementData.setManufacturerData(toString(dataTVColorBalance)); 
     break;
   default:
-    oAdvertisementData.setManufacturerData(std::string((char *)dataAirpods, 31)); 
+    oAdvertisementData.setManufacturerData(toString(dataAirpods)); 
     break;
 
   pAdvertising->setAdvertisementData(oAdvertisementData);
@@ -280,6 +285,9 @@ switch (deviceType) {
   updateDisplay();
   }
 }
+
+
+
 
 void handleButtonPress(int pin, void (*callback)()) {
   int reading = digitalRead(pin);
