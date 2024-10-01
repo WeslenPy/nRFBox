@@ -214,7 +214,7 @@ void loop() {
   checkAndCallMenu(3,blejammerSetup,blejammerLoop);
   checkAndCallMenu(2,jammerSetup,jammerLoop);
   checkAndCallMenu(1,analyzerSetup,analyzerLoop);
-  checkAndCallMenu(1,scannerSetup,scannerLoop);
+  checkAndCallMenu(0,scannerSetup,scannerLoop);
 
 
   btnSelect(0,1);
