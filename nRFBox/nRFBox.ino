@@ -204,6 +204,7 @@ void loop() {
 
  
   checkState();
+  callAbout = false
 
   btnSelect(1,0);
 
