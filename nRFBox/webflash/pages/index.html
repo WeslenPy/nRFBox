@@ -114,7 +114,7 @@
       document.querySelectorAll('input[name="type"]').forEach(radio =>
         radio.addEventListener("change", () => {
           const button = document.querySelector('esp-web-install-button');
-          button.manifest = `nRFBox/webflash/compile/esp32/manifest_${radio.value}.json`;
+          button.manifest = `compile/esp32/manifest_${radio.value}.json`;
           button.classList.remove('invisible');
         }
       ));
