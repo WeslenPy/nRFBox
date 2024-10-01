@@ -69,10 +69,16 @@
       }
 
       .btn{
+        width: 100%;
+        margin-top: 2rem;
+      }
+
+      .centralize{
         align-items: center;
         justify-content: center;
-        width: 100%;
+        display: flex;
       }
+
       @media (prefers-color-scheme: dark) {
         body {
           background-color: #333;
@@ -86,7 +92,7 @@
     <script type="module" src="https://unpkg.com/esp-web-tools@8.0.1/dist/web/install-button.js?module"></script>
   </head>
   <body>
-    <div class="content">
+    <div class="content centralize">
       <h1>nRFBox Flasher</h1>
       <p>Choose your hardware</p>
       <ul class="radios">
