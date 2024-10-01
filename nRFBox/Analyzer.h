@@ -1,19 +1,17 @@
 /* ____________________________
    This software is licensed under the MIT License:
-   https://github.com/cifertech/nRFBox
+   https://github.com/cifertech/nrfbox
    ________________________________________ */
 
-#ifndef Analyzer_H
-#define Analyzer_H
+#ifndef analyzer_H
+#define analyzer_H
 
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <Adafruit_NeoPixel.h>
 #include <SPI.h>
-#include "nRF24L01.h"
-#include "RF24.h"
+#include <U8g2lib.h>
+#include "esp_bt.h"
+#include "esp_wifi.h"
 
-void AnalyzerSetup();
-void AnalyzerLoop();
+void analyzerSetup();
+void analyzerLoop();
 
 #endif

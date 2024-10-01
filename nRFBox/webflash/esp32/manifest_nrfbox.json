@@ -1,0 +1,14 @@
+{
+  "name": "nRFBox",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "improv": false,
+      "parts": [
+        { "path": "nRFBox.bootloader.bin", "offset": 4096 },
+        { "path": "nRFBox.partitions.bin", "offset": 32768 },
+        { "path": "nRFBox.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
