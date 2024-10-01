@@ -6,6 +6,7 @@
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <Adafruit_NeoPixel.h>
+#include <functional>
 
 #ifdef U8X8_HAVE_HW_I2C
 #include <Wire.h>
@@ -80,6 +81,7 @@ void about() {
 
 
 void setup() {
+  Serial.begin(115200);
 
   u8g2.begin();
   u8g2.setBitmapMode(1);
@@ -104,7 +106,7 @@ void setup() {
 }
 
 
-void checkAndCallMenu(int index,void(*function_setup)(),void(*function_call)()){
+void checkAndCallMenu(int index,void(&function_setup)(),void(&function_call)()){
   if (current_screen == 0 && item_selected == index) {
       function_setup();
       while (item_selected == index) {
@@ -131,7 +133,7 @@ void checkAndCallMenu(int index,void(*function_setup)(),void(*function_call)()){
 
 
 void checkState(){
- if (current_screen == 0) { // MENU SCREEN
+ if (current_screen == MENU_INITIAL) { // MENU SCREEN
     
       if ((digitalRead(BUTTON_UP_PIN) == LOW) && (button_up_clicked == 0)) { 
         item_selected = item_selected - 1; 
@@ -158,9 +160,9 @@ void checkState(){
 
 }
 
-void btnSelect(int number,int check){
+void btnSelect(int check,int number,int mode){
 
-  if ((digitalRead(BUTTON_SELECT_PIN) == LOW) && (button_select_clicked == check)) { 
+  if ((digitalRead(BUTTON_SELECT_PIN) == mode) && (button_select_clicked == check)) { 
      button_select_clicked = number; 
      }
 }
@@ -203,22 +205,37 @@ void callAboutIfSelect(){
 void loop() {
 
  
+  Serial.println("1 = item_selected: ");
+  Serial.print(item_selected);
   checkState();
-  callAbout = false
+  callAbout = true;
+  Serial.println("2 = item_selected: ");
+  Serial.print(item_selected);
 
-  btnSelect(1,0);
+  btnSelect(0,1,0);
 
-  callAboutIfSelect();
-
-  checkAndCallMenu(5,sourappleSetup,sourappleLoop);
-  checkAndCallMenu(4,spooferSetup,spooferLoop);
-  checkAndCallMenu(3,blejammerSetup,blejammerLoop);
-  checkAndCallMenu(2,jammerSetup,jammerLoop);
-  checkAndCallMenu(1,analyzerSetup,analyzerLoop);
-  checkAndCallMenu(0,scannerSetup,scannerLoop);
+  Serial.println("3 = item_selected: ");
+  Serial.print(item_selected);
 
 
-  btnSelect(0,1);
+
+ if ((digitalRead(BUTTON_SELECT_PIN) == LOW) && (button_select_clicked == 0)) { 
+    button_select_clicked = 1; 
+
+    callAboutIfSelect();
+    checkAndCallMenu(5,sourappleSetup,sourappleLoop);
+    checkAndCallMenu(4,spooferSetup,spooferLoop);
+    checkAndCallMenu(3,blejammerSetup,blejammerLoop);
+    checkAndCallMenu(2,jammerSetup,jammerLoop);
+    checkAndCallMenu(1,analyzerSetup,analyzerLoop);
+    checkAndCallMenu(0,scannerSetup,scannerLoop);
+
+  }
+
+
+  btnSelect(1,0,1);
+  Serial.println("4 = item_selected: ");
+  Serial.print(item_selected);
 
   paginateMenu();
 
