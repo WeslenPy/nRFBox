@@ -199,9 +199,9 @@ void loop() {
 
   callAboutIfSelect();
 
-  checkAndCallMenu(0,jammerSetup,jammerLoop);
+  checkAndCallMenu(2,jammerSetup,jammerLoop);
   checkAndCallMenu(1,analyzerSetup,analyzerLoop);
-  checkAndCallMenu(2,scannerSetup,scannerLoop);
+  checkAndCallMenu(0,scannerSetup,scannerLoop);
 
 
   btnSelect(0,1);
