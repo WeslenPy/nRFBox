@@ -122,9 +122,6 @@ void pressBt04() {
 void jammerSetup(){
     Serial.begin(115200);
 
-    esp_bt_controller_deinit();
-    esp_wifi_stop();
-    esp_wifi_deinit();
     
     pinMode(BT1, INPUT_PULLUP);
     pinMode(BT2, INPUT_PULLUP);

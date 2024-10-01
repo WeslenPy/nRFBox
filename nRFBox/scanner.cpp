@@ -191,9 +191,6 @@ void checkButtons() {
 void scannerSetup(){
   Serial.begin(115200);
 
-  esp_bt_controller_deinit();
-  esp_wifi_stop();
-  esp_wifi_deinit();
 
   u8g2.begin();
   
@@ -204,7 +201,7 @@ void scannerSetup(){
   Serial.println("Starting 2.4GHz Scanner ...");
   Serial.println();
 
-  SPI.begin(18, 19, 23, 17);
+  SPI.begin();
   SPI.setDataMode(SPI_MODE0);
   SPI.setFrequency(10000000);
   SPI.setBitOrder(MSBFIRST);

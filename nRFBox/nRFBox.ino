@@ -15,12 +15,8 @@
 #include "scanner.h"
 #include "analyzer.h"
 #include "jammer.h"
-#include "blejammer.h"
-#include "spoofer.h"
-#include "sourapple.h"
 
-//U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0); // [full framebuffer, size = 1024 bytes]
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X64_NONAME_F_SW_I2C u8g2(U8G2_R0, /* clock = */ 12, /* data = */ 14, /* reset = */ U8X8_PIN_NONE); // Inicializa o display Configuração 
 
 Adafruit_NeoPixel pixels(1, 14, NEO_GRB + NEO_KHZ800);
 
@@ -29,9 +25,6 @@ const unsigned char* bitmap_icons[8] = {
   bitmap_icon_scanner,
   bitmap_icon_analyzer,
   bitmap_icon_jammer,
-  bitmap_icon_ble_jammer,
-  bitmap_icon_spoofer,
-  bitmap_icon_apple,
   bitmap_icon_about
 };
 
@@ -44,9 +37,6 @@ char menu_items [NUM_ITEMS] [MAX_ITEM_LENGTH] = {
   { "Scanner" }, 
   { "Analyzer" },
   { "Jammer" },
-  { "BLE Jammer" },
-  { "BLE Spoofer" }, 
-  { "Sour Apple" },
   { "About" }
  };
  
@@ -176,8 +166,8 @@ void paginateMenu(){
 
 
 void callAboutIfSelect(){
-  if (current_screen == MENU_INITIAL && item_selected == 6) {
-    while (item_selected == 6) {
+  if (current_screen == MENU_INITIAL && item_selected == 3) {
+    while (item_selected == 3) {
         if (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
             if (callAbout) {
                 about();
@@ -209,12 +199,9 @@ void loop() {
 
   callAboutIfSelect();
 
-  checkAndCallMenu(5,sourappleSetup,sourappleLoop);
-  checkAndCallMenu(4,spooferSetup,spooferLoop);
-  checkAndCallMenu(3,blejammerSetup,blejammerLoop);
-  checkAndCallMenu(2,jammerSetup,jammerLoop);
+  checkAndCallMenu(0,jammerSetup,jammerLoop);
   checkAndCallMenu(1,analyzerSetup,analyzerLoop);
-  checkAndCallMenu(1,scannerSetup,scannerLoop);
+  checkAndCallMenu(2,scannerSetup,scannerLoop);
 
 
   btnSelect(0,1);

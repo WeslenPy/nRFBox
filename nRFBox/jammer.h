@@ -10,8 +10,7 @@
 #include <Wire.h>
 #include <U8g2lib.h>
 #include <RF24.h>
-#include "esp_bt.h"
-#include "esp_wifi.h"
+#include "ESP8266WiFi.h"
 
 void jammerSetup();
 void jammerLoop();

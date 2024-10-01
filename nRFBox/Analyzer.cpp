@@ -129,14 +129,10 @@ void analyzerSetup(){
   
     Serial.begin(115200);
 
-    esp_bt_controller_deinit();
-    esp_wifi_stop();
-    esp_wifi_deinit();
-  
     pinMode(CE, OUTPUT);
     pinMode(CSN, OUTPUT);
 
-    SPI.begin(18, 19, 23, 17);
+    SPI.begin();
     SPI.setDataMode(SPI_MODE0);
     SPI.setFrequency(10000000);
     SPI.setBitOrder(MSBFIRST);
