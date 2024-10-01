@@ -35,6 +35,7 @@ const unsigned char* bitmap_icons[8] = {
   bitmap_icon_about
 };
 
+const int MENU_INITIAL = 0;
 
 const int NUM_ITEMS = 7; 
 const int MAX_ITEM_LENGTH = 20; 
@@ -54,6 +55,7 @@ char menu_items [NUM_ITEMS] [MAX_ITEM_LENGTH] = {
 #define BUTTON_SELECT_PIN 32
 #define BUTTON_DOWN_PIN 33 
 
+bool callAbout = true;
 
 int button_up_clicked = 0; 
 int button_select_clicked = 0; 
@@ -92,10 +94,6 @@ void setup() {
   u8g2.setCursor(15, 35); 
   u8g2.print("nRF-BOX");
   
-  u8g2.setFont(u8g2_font_ncenB08_tr); 
-  u8g2.setCursor(15, 50); 
-  u8g2.print("by CiferTech");
-  
   u8g2.sendBuffer(); 
   delay(3000);
 
@@ -106,9 +104,34 @@ void setup() {
 }
 
 
-void loop() {
+void checkAndCallMenu(int index,void(*function_setup)(),void(*function_call)()){
+  if (current_screen == 0 && item_selected == index) {
+      function_setup();
+      while (item_selected == index) {
+          if (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
+              function_call();
+             if (callAbout) {                
+                  callAbout = false;  // Toggle the state to not call about()
+              } else {
+                  break;  // Toggle the state to break the loop
+                  callAbout = true;  // Reset the state for the next cycle
+              }
 
-  if (current_screen == 0) { // MENU SCREEN
+              while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
+                  // Wait for the button to be released
+                  
+                  if (callAbout = true){
+                    break;
+                  }
+            }
+          }
+      }
+  }
+}
+
+
+void checkState(){
+ if (current_screen == 0) { // MENU SCREEN
     
       if ((digitalRead(BUTTON_UP_PIN) == LOW) && (button_up_clicked == 0)) { 
         item_selected = item_selected - 1; 
@@ -133,14 +156,27 @@ void loop() {
       }
   }
 
+}
 
-  bool callAbout = true;
+void btnSelect(int number,int check){
 
-  if ((digitalRead(BUTTON_SELECT_PIN) == LOW) && (button_select_clicked == 0)) { 
-     button_select_clicked = 1; 
+  if ((digitalRead(BUTTON_SELECT_PIN) == LOW) && (button_select_clicked == check)) { 
+     button_select_clicked = number; 
+     }
+}
 
 
-if (current_screen == 0 && item_selected == 6) {
+void paginateMenu(){
+  
+  item_sel_previous = item_selected - 1;
+  if (item_sel_previous < 0) {item_sel_previous = NUM_ITEMS - 1;} 
+  item_sel_next = item_selected + 1;  
+  if (item_sel_next >= NUM_ITEMS) {item_sel_next = 0;} 
+}
+
+
+void callAboutIfSelect(){
+  if (current_screen == MENU_INITIAL && item_selected == 6) {
     while (item_selected == 6) {
         if (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
             if (callAbout) {
@@ -161,166 +197,34 @@ if (current_screen == 0 && item_selected == 6) {
     }
   }
 
-
-if (current_screen == 0 && item_selected == 5) {
-  sourappleSetup();
-    while (item_selected == 5) {
-        if (digitalRead(BUTTON_SELECT_PIN) == HIGH) { 
-          sourappleLoop();     
-            if (callAbout) {                
-                callAbout = false;  // Toggle the state to not call about()
-            } else {
-                break;  // Toggle the state to break the loop
-                callAbout = true;  // Reset the state for the next cycle
-            }
-
-            while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
-                // Wait for the button to be released
-                
-                if (callAbout = true){
-                  break;
-                }
-            }
-        }
-    }
-}     
-
-
-if (current_screen == 0 && item_selected == 4) {
-  spooferSetup();
-    while (item_selected == 4) {
-        if (digitalRead(BUTTON_SELECT_PIN) == HIGH) { 
-          spooferLoop();     
-            if (callAbout) {                
-                callAbout = false;  // Toggle the state to not call about()
-            } else {
-                break;  // Toggle the state to break the loop
-                callAbout = true;  // Reset the state for the next cycle
-            }
-
-            while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
-                // Wait for the button to be released
-                
-                if (callAbout = true){
-                  break;
-                }
-            }
-        }
-    }
 }
-     
 
-if (current_screen == 0 && item_selected == 3) {
-  blejammerSetup();
-    while (item_selected == 3) {
-        if (digitalRead(BUTTON_SELECT_PIN) == HIGH) { 
-          blejammerLoop();     
-            if (callAbout) {                
-                callAbout = false;  // Toggle the state to not call about()
-            } else {
-                break;  // Toggle the state to break the loop
-                callAbout = true;  // Reset the state for the next cycle
-            }
 
-            while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
-                // Wait for the button to be released
-                
-                if (callAbout = true){
-                  break;
-                }
-            }
-        }
-    }
-}
-     
+void loop() {
 
-if (current_screen == 0 && item_selected == 2) {
-  jammerSetup();
-    while (item_selected == 2) {
-        if (digitalRead(BUTTON_SELECT_PIN) == HIGH) { 
-          jammerLoop();     
-            if (callAbout) {                
-                callAbout = false;  // Toggle the state to not call about()
-            } else {
-                break;  // Toggle the state to break the loop
-                callAbout = true;  // Reset the state for the next cycle
-            }
-
-            while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
-                // Wait for the button to be released
-                
-                if (callAbout = true){
-                  break;
-                }
-            }
-        }
-    }
-}     
-     
  
-if (current_screen == 0 && item_selected == 1) {
-  analyzerSetup();
-    while (item_selected == 1) {
-        if (digitalRead(BUTTON_SELECT_PIN) == HIGH) { 
-          analyzerLoop();     
-            if (callAbout) {                
-                callAbout = false;  // Toggle the state to not call about()
-            } else {
-                break;  // Toggle the state to break the loop
-                callAbout = true;  // Reset the state for the next cycle
-            }
+  checkState();
 
-            while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
-                // Wait for the button to be released
-                
-                if (callAbout = true){
-                  break;
-                }
-            }
-        }
-    }
-}    
-   
+  btnSelect(1,0);
 
-if (current_screen == 0 && item_selected == 0) {
-  scannerSetup();
-    while (item_selected == 0) {
-        if (digitalRead(BUTTON_SELECT_PIN) == HIGH) {       
-            if (callAbout) {
-                scannerLoop();   
-                callAbout = false;  // Toggle the state to not call about()
-            } else {
-                break;  // Toggle the state to break the loop
-                callAbout = true;  // Reset the state for the next cycle
-            }
+  callAboutIfSelect();
 
-            while (digitalRead(BUTTON_SELECT_PIN) == HIGH) {
-                // Wait for the button to be released
-                if (callAbout = true){
-                  break;
-                }
-            }
-        }
-    }
- }  
-
-}  
-
-  if ((digitalRead(BUTTON_SELECT_PIN) == HIGH) && (button_select_clicked == 1)) { 
-    button_select_clicked = 0;
-  }
+  checkAndCallMenu(5,sourappleSetup,sourappleLoop);
+  checkAndCallMenu(4,spooferSetup,spooferLoop);
+  checkAndCallMenu(3,blejammerSetup,blejammerLoop);
+  checkAndCallMenu(2,jammerSetup,jammerLoop);
+  checkAndCallMenu(1,analyzerSetup,analyzerLoop);
+  checkAndCallMenu(1,scannerSetup,scannerLoop);
 
 
-  item_sel_previous = item_selected - 1;
-  if (item_sel_previous < 0) {item_sel_previous = NUM_ITEMS - 1;} 
-  item_sel_next = item_selected + 1;  
-  if (item_sel_next >= NUM_ITEMS) {item_sel_next = 0;} 
+  btnSelect(0,1);
 
+  paginateMenu();
 
 
   u8g2.clearBuffer();  
 
-    if (current_screen == 0) { 
+    if (current_screen == MENU_INITIAL) { 
       
       u8g2.drawXBMP(0, 22, 128, 21, bitmap_item_sel_outline);
 
