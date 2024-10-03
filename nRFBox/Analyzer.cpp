@@ -129,6 +129,7 @@ void analyzerSetup(){
   
     Serial.begin(115200);
 
+  
     pinMode(CE, OUTPUT);
     pinMode(CSN, OUTPUT);
 
